@@ -1,3 +1,9 @@
+NOTE: This project requires the MS Z3 solver library to work. The project is set
+up correctly to use it, however the Z3 crate doesn't build out of the box and
+requires some tweaking to get working. I had to copy the Z3 .dll and .lib file
+to the root of this project's folder to get it working. I also had to copy the
+z3.h file to the root folder too.
+
 [LANGUAGE: Rust]  🦀
 
 For the first part, I figured a solution could be arrived at pretty easily by using matrices to solve the system of equations for every two hailstones. I used this [mathru](https://docs.rs/mathru/latest/mathru/) crate that has working linear algebra features.
