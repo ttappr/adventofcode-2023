@@ -19,7 +19,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 /// Part 1: Cube Conundrum. Determine which games would have been possible.
 /// 
 fn part_1() -> Result<(), Box<dyn Error>> {
-    let file   = File::open("./data/input.txt")?;
+    let file   = File::open("./data/sample1.txt")?;
     let reader = BufReader::new(file);
     let expr1  = Regex::new(r"^Game (\d+)")?;
     let expr2  = Regex::new(r"(\d+) (red|green|blue)")?;
@@ -54,7 +54,7 @@ fn part_1() -> Result<(), Box<dyn Error>> {
 /// Part 2: Find minimum set of cubes needed for each game.
 /// 
 fn part_2() -> Result<(), Box<dyn Error>> {
-    let file   = File::open("./data/input.txt")?;
+    let file   = File::open("./data/sample1.txt")?;
     let reader = BufReader::new(file);
     let expr2  = Regex::new(r"(\d+) (red|green|blue)")?;
 

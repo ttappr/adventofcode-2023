@@ -24,10 +24,14 @@ fn main() -> Result<(), Box<dyn Error>> {
     let start = Instant::now();
 
     for input in ["./data/sample1.txt", 
-                  "./data/sample2.txt", 
-                  "./data/input1.txt"] {
+                  //"./data/sample2.txt", 
+                  //"./data/input1.txt"
+                  ] {
         part_1(input)?;
-        part_2(input)?;
+        // Part 2 requires customization to work for individual solutions.
+        //part_2(input)?; 
+        println!("Part 2 Must customize sources for it to work for \
+                         individual solutions.");
     }
 
     let duration = start.elapsed();

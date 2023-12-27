@@ -22,12 +22,11 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let start = Instant::now();
 
-    for input in [//"./data/sample1.txt", 
-                  //"./data/sample2.txt",
-                  "./data/input1.txt"
+    for input in ["./data/sample1.txt", 
+                  "./data/sample2.txt",
+                  //"./data/input1.txt"
                   ] {
         part_1(input)?;
-        part_2(input)?;
     }
 
     let duration = start.elapsed();
@@ -67,14 +66,6 @@ fn part_1(path: &str) -> Result<usize, Box<dyn Error>> {
     } else {
         println!("Unable to find min cut!");
     }
-    Ok(0)
-}
-
-/// Part 2: WORK IN PROGRESS!!!
-/// 
-#[allow(unused)]
-fn part_2(path: &str) -> Result<usize, Box<dyn Error>> {
-    println!("Part 2 Total: {}", 0);
     Ok(0)
 }
 

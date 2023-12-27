@@ -43,8 +43,8 @@ enum Hand {
 fn main() -> Result<(), Box<dyn Error>> {
     println!("Day 7 Advent of Code\n");
 
-    let input = "./data/input1.txt";
-    //let input = "./data/sample1.txt";
+    //let input = "./data/input1.txt";
+    let input = "./data/sample1.txt";
     
     let start = Instant::now();
 

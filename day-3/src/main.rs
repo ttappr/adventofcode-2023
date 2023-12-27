@@ -26,7 +26,7 @@ macro_rules! is_digit { ($b:expr) => { $b.is_ascii_digit() } }
 /// 
 fn part_1() -> Result<(), Box<dyn Error>> {
     use Direction::*;
-    let matrix = get_matrix("./data/input1.txt")?;
+    let matrix = get_matrix("./data/sample1.txt")?;
 
     let (m, n) = (matrix.len(), matrix[0].len());
 
@@ -66,7 +66,7 @@ fn part_1() -> Result<(), Box<dyn Error>> {
 /// 
 fn part_2() -> Result<(), Box<dyn Error>> {
     use Direction::*;
-    let matrix = get_matrix("./data/input1.txt")?;
+    let matrix = get_matrix("./data/sample1.txt")?;
 
     let (m, n) = (matrix.len(), matrix[0].len());
 

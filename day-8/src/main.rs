@@ -15,8 +15,8 @@ use regex::Regex;
 fn main() -> Result<(), Box<dyn Error>> {
     println!("Day 8 Advent of Code\n"); 
 
-    let input = "./data/input1.txt";
-    //let input = "./data/sample1.txt";
+    //let input = "./data/input1.txt";
+    let input = "./data/sample1.txt";
     //let input = "./data/sample2.txt";
     //let input = "./data/sample3.txt";
     

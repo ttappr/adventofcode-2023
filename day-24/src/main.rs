@@ -28,8 +28,8 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let start = Instant::now();
 
-    for input in [//"./data/sample1.txt", 
-                  "./data/input1.txt"
+    for input in ["./data/sample1.txt", 
+                  //"./data/input1.txt"
                   ] {
         part_1(input)?;
         part_2(input)?;

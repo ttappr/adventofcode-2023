@@ -18,7 +18,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 /// Part 1, Get the sum of all calibration values from input data.
 /// 
 fn part_1() -> Result<(), Box<dyn Error>> {
-    let file   = File::open("./data/input.txt")?;    
+    let file   = File::open("./data/sample1.txt")?;    
     let reader = BufReader::new(file);
 
     let mut total = 0;
@@ -45,7 +45,7 @@ fn part_1() -> Result<(), Box<dyn Error>> {
 /// out.
 /// 
 fn part_2() -> Result<(), Box<dyn Error>> {
-    let file   = File::open("./data/input.txt")?;    
+    let file   = File::open("./data/sample2.txt")?;    
     let reader = BufReader::new(file);
     let rexpr  = Regex::new("one|two|three|four|five|six|seven|\
                                 eight|nine|[0-9]")?;

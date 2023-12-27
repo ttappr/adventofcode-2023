@@ -15,8 +15,8 @@ use std::time::Instant;
 fn main() -> Result<(), Box<dyn Error>> {
     println!("\nDay 16 Advent of Code\n"); 
 
-    let input = "./data/input1.txt";
-    //let input = "./data/sample1.txt";
+    //let input = "./data/input1.txt";
+    let input = "./data/sample1.txt";
     
     let start = Instant::now();
 
@@ -116,9 +116,9 @@ impl Vertex {
         else                { child.dir    = dir; 
                               child.count  = 1; }
         match dir {
-            b'N' => child.i -= 1,
+            b'N' => child.i = child.i.saturating_sub(1),
             b'S' => child.i += 1,
-            b'W' => child.j -= 1,
+            b'W' => child.j = child.j.saturating_sub(1),
             b'E' => child.j += 1,
             _ => unreachable!(),
         }

@@ -12,8 +12,8 @@ use fenwick::Fenwick;
 fn main() -> Result<(), Box<dyn Error>> {
     println!("Day 11 Advent of Code\n"); 
 
-    let input = "./data/input1.txt";
-    //let input = "./data/sample1.txt";
+    //let input = "./data/input1.txt";
+    let input = "./data/sample1.txt";
     
     let start = Instant::now();
 
