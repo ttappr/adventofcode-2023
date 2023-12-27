@@ -8,4 +8,4 @@ take some steps to ensure that the compiler can locate the Z3 binaries.
 To read the challenge text for each solution, you'll need to browse to the
 [Advent of Code 2023 site](https://adventofcode.com/2023) since, I believe,
 we aren't permitted to include copies of our individual puzzle data or the
-text to the problems. 
+text to the problems in our posted projects. 
