@@ -1,0 +1,5 @@
+/target
+/data/input*.txt
+libz3*.*
+z3.h
+.z3-trace
