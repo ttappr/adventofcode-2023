@@ -20,7 +20,7 @@ the folder it creates and ran the "./vcpkg.exe install z3" command.
 - The `z3.lib` file will be in "lib".
 - The `z3.dll` file will be in "bin"
 
-This is very hackish - I know - but this was the quick and dirty wcday I got it
+This is very hackish - I know - but this was the quick and dirty way I got it
 working so I could complete the day-24 puzzle: you'll want to copy the .lib and
 .dll files into the root folder of your day-24 Rust project.
 
