@@ -35,6 +35,11 @@ issued `$Env:Z3_SYS_Z3_HEADER="C:/Users/me/projects/vcpkg/packages/z3_x64-window
 the project was opened so I could build and run from the vscode terminal command 
 line.
 
+The real puzzle input generates correct solutions, but the "sample.txt" example
+input doesn't appear to get a correct answer for part-1. I tweaked part-2 to
+generate a correct answer for "sample.txt" though. If you run this against
+real puzzle input, the code may need some tweaking (see comments in code).
+
 
 [LANGUAGE: Rust]  🦀
 

@@ -96,7 +96,10 @@ fn part_2(path: &str) -> Result<f64, Box<dyn Error>> {
     // The sample size and the skip values are kind of arbitrary. The z3 lib
     // is finicky. I had to play around with these values to get a solution.
     for (i, hail) 
-        in (0..15).zip(hail.iter().skip(5).map(|h| h.z3_hail_stone(&ctx))) {
+        // You'll need to play around with this commented out line to get the
+        // real puzzle input to work.
+        //in (0..15).zip(hail.iter().skip(5).map(|h| h.z3_hail_stone(&ctx))) {
+        in (0..5).zip(hail.iter().map(|h| h.z3_hail_stone(&ctx))) {
 
         let t = Int::new_const(&ctx, format!("t{}", i));
 
@@ -106,7 +109,6 @@ fn part_2(path: &str) -> Result<f64, Box<dyn Error>> {
         solver.assert(&(&rock_z + &rock_vz * &t)._eq(&(hail.z + hail.vz * &t)));
     }
     if let (Sat, Some(model)) = (solver.check(), solver.get_model()) {
-        println!("{:?}", model);
         let soln = model.eval(&(rock_x + rock_y + rock_z), true).unwrap();
 
         println!("Part 2: Sum of coordinates: {}", soln);
