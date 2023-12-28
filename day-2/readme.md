@@ -1,6 +1,9 @@
 [LANGUAGE: Rust]
+
 Part 1 & 2 are nearly identical aside from the totaling logic. Regarding day 1.. overlapping matches.. ugh! Rust's `regex` crate doesn't support overlapping via lookahead patterns. I spent hours poring over the code thinking the puzzle itself must be bugged. It only occurred to me there were overlaps when I parsed the input data with a python script.
 Full code
+
+
 fn part_2() -> Result<(), Box<dyn Error>> {
     let file   = File::open("./data/input.txt")?;
     let reader = BufReader::new(file);
