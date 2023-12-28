@@ -2,13 +2,15 @@
 
 This project contains the solutions for all days of the puzzle challenge series.
 All of them should be buildable/runnable after pulling them down to a target
-system. Except day 24 - this one relies on the Z3 solver library, which may 
-take some steps to ensure that the compiler can locate the Z3 binaries. 
+system. 1 or 2 of them however may takes some tweaking to get to work. 
 
-To read the challenge text for each solution, you'll need to browse to the
-[Advent of Code 2023 site](https://adventofcode.com/2023) since, I believe,
-we aren't permitted to include copies of our individual puzzle data or the
-text to the problems in our posted projects. 
+For instance, Part 2 of Day 20 requires some a priori knowledge of which nodes
+are connected to the final output node, and this may vary for each user. So,
+you would have to update the code to work with your own puzzle input.
+
+To read the challenge text for each solution, you can browse the
+[Advent of Code 2023 site](https://adventofcode.com/2023) calendar, click on the
+day of interest.
 
 Each project has a *readme.md* file. These are just the text of the reddit posts
 I made to the AoC 2023 solutions threads as I completed each puzzle.
