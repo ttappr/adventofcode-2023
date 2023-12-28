@@ -3,7 +3,9 @@
 //! 
 //! Part 1: Starting from the garden plot marked S on your map, how many garden 
 //!         plots could the Elf reach in exactly 64 steps?
-//! Part 2: 
+//! Part 2: However, the step count the Elf needs is much larger! Starting from 
+//!         the garden plot marked S on your infinite map, how many garden plots 
+//!         could the Elf reach in exactly 26501365 steps?
 
 use std::collections::{HashMap, HashSet, VecDeque};
 use std::error::Error;
@@ -71,7 +73,9 @@ fn part_1(path: &str) -> Result<i64, Box<dyn Error>> {
     Ok(tiles)
 }
 
-/// Part 2: 
+/// Part 2: However, the step count the Elf needs is much larger! Starting from 
+///         the garden plot marked S on your infinite map, how many garden plots
+///         could the Elf reach in exactly 26501365 steps?
 /// 
 fn part_2(path: &str) -> Result<i64, Box<dyn Error>> {
     let     grid  = parse_input(path)?; 
