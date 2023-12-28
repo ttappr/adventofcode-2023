@@ -4,7 +4,7 @@ requires some tweaking to get working.
 
 First, you'll want to install the z3 package to your system.
 Here's a [link to the z3 GitHub repo](https://github.com/Z3Prover/z3). And if
-scroll down to [this section](https://github.com/Z3Prover/z3?tab=readme-ov-file#building-z3-using-vcpkg),
+you scroll down to [this section](https://github.com/Z3Prover/z3?tab=readme-ov-file#building-z3-using-vcpkg),
 you'll find simple instructions on how to install z3 using `vcpkg`. I did this
 on my Windows system and it "just worked" - well, at least the z3 build worked
 cleanly. 
@@ -16,11 +16,11 @@ the folder it creates and ran the "./vcpkg.exe install z3" command.
 `vcpkg` places "installed" packages in a subfolder of its own directory under
 "./packages/z3_x64-windows". The path will be different if you're on Linux.
 
-- The `z3.h` header files will be in the package folder under "include".
+- The `z3.h` header file will be in the package folder under "include".
 - The `z3.lib` file will be in "lib".
 - The `z3.dll` file will be in "bin"
 
-This is very hackish - I know - but this was the quick and dirty way I got it
+This is very hackish - I know - but this was the quick and dirty wcday I got it
 working so I could complete the day-24 puzzle: you'll want to copy the .lib and
 .dll files into the root folder of your day-24 Rust project.
 
