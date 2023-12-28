@@ -28,7 +28,7 @@ Then update an environment variable that the z3 crate uses to locate the z3.h
 file. You'll want the full path to the package's "include" folder plus the
 specific name of the file, for instance: 
 
-`Z3_SYS_Z3_HEADER="/users/me/projects/vcpkg/packages/PLATFORM-NAME/include/z3.h"``
+`Z3_SYS_Z3_HEADER="/users/me/projects/vcpkg/packages/PLATFORM-NAME/include/z3.h"`
 
 Use whatever command is appropriate for setting the environment variable. I 
 issued `$Env:Z3_SYS_Z3_HEADER="C:/Users/me/projects/vcpkg/packages/z3_x64-windows/z3.h"` (PowerShell) in the vscode terminal while 
