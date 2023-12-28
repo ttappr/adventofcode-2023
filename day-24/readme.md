@@ -1,8 +1,40 @@
-NOTE: This project requires the MS Z3 solver library to work. The project is set
-up correctly to use it, however the Z3 crate doesn't build out of the box and
-requires some tweaking to get working. I had to copy the Z3 .dll and .lib file
-to the root of this project's folder to get it working. I also had to copy the
-z3.h file to the root folder too.
+NOTE: This project requires the MS z3 solver library to work. The project is set
+up correctly to use it, however the z3 crate doesn't build out of the box and
+requires some tweaking to get working.
+
+First, you'll want to install the z3 package to your system.
+Here's a [link to the z3 GitHub repo](https://github.com/Z3Prover/z3). And if
+scroll down to [this section](https://github.com/Z3Prover/z3?tab=readme-ov-file#building-z3-using-vcpkg),
+you'll find simple instructions on how to install z3 using `vcpkg`. I did this
+on my Windows system and it "just worked" - well, at least the z3 build worked
+cleanly. 
+
+I made a folder for [vcpkg](https://vcpkg.io/) where I keep my other projects
+and did the simple install step (ran ./bootstrap-vcpkg.bat), then cd'd into
+the folder it creates and ran the "./vcpkg.exe install z3" command.
+
+`vcpkg` places "installed" packages in a subfolder of its own directory under
+"./packages/z3_x64-windows". The path will be different if you're on Linux.
+
+- The `z3.h` header files will be in the package folder under "include".
+- The `z3.lib` file will be in "lib".
+- The `z3.dll` file will be in "bin"
+
+This is very hackish - I know - but this was the quick and dirty way I got it
+working so I could complete the day-24 puzzle: you'll want to copy the .lib and
+.dll files into the root folder of your day-24 Rust project.
+
+Then update an environment variable that the z3 crate uses to locate the z3.h 
+file. You'll want the full path to the package's "include" folder plus the
+specific name of the file, for instance: 
+
+`Z3_SYS_Z3_HEADER="/users/me/projects/vcpkg/packages/PLATFORM-NAME/include/z3.h"``
+
+Use whatever command is appropriate for setting the environment variable. I 
+issued `$Env:Z3_SYS_Z3_HEADER="C:/Users/me/projects/vcpkg/packages/z3_x64-windows/z3.h"` (PowerShell) in the vscode terminal while 
+the project was opened so I could build and run from the vscode terminal command 
+line.
+
 
 [LANGUAGE: Rust]  🦀
 
