@@ -43,15 +43,15 @@ fn part_1(path: &str) -> Result<usize, Box<dyn Error>> {
     let start  = (0usize, 1usize);
     let end    = (m - 1, n - 2);
 
-    let mut vertices = Vec::new();
-    let mut adjacent = HashMap::new();
+    let mut verts = Vec::new();
+    let mut graph = GraphP1::new();
 
     macro_rules! map { ($p: expr) => { (map[$p.0][$p.1]) } }
     
     for (i, row) in map.iter().enumerate() {
         for (j, _) in row.iter().enumerate() {
             if map[i][j] != '#' {
-                vertices.push((i, j));
+                verts.push((i, j));
             }
             let test = [(i.saturating_sub(1), j), (i, j.saturating_sub(1)), 
                         ((i + 1).min(m - 1),  j), (i, (j + 1).min(n - 1))];
@@ -60,10 +60,10 @@ fn part_1(path: &str) -> Result<usize, Box<dyn Error>> {
             if !['#', '>'].contains(&map!(test[1])) { adj2.push(test[1]); }
             if !['#', '^'].contains(&map!(test[2])) { adj2.push(test[2]); }
             if !['#', '<'].contains(&map!(test[3])) { adj2.push(test[3]); }
-            adjacent.insert((i, j), adj2);
+            graph.insert((i, j), adj2);
         }
     }
-    let dists = longest_path(&vertices, &adjacent, start);
+    let dists = longest_path(&verts, &graph, start);
     let steps = *dists.get(&end).unwrap_or(&0) - 2;
 
     println!("Part 1 Total steps...: {}", steps);
@@ -186,10 +186,10 @@ impl Vertex {
 /// iterative to avoid stack overflow.
 /// 
 fn dfs(start: Locus, end: Locus, graph: &GraphP2) -> usize {
-    enum Stage<T> { 
-        Enter(T, usize), 
-        Loop(T, usize, usize),
-        Finish(T) 
+    enum Stage { 
+        Enter(Locus, usize), 
+        Loop(Locus, usize, usize),
+        Finish(Locus) 
     } use Stage::*;
 
     let mut seen   = HashSet::new();
@@ -263,7 +263,8 @@ fn topological_sort(vertex : Locus,
                     seen   : &mut HashSet<Locus>,
                     graph  : &GraphP1)
 {
-    enum Stage<T> { Enter(T), Loop(T, usize), Finish(T) } use Stage::*;
+    enum Stage { Enter(Locus), Loop(Locus, usize), Finish(Locus) } 
+    use Stage::*;
 
     let mut lstack = vec![Enter(vertex)];
 
