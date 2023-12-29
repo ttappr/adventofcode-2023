@@ -82,6 +82,10 @@ fn part_2(path: &str) -> Result<i64, Box<dyn Error>> {
         button.send_pulse(&mut mediator);
         mediator.loop_until_done(&mut modules);
 
+        // To get this to work, you'll need to analyze your puzzle input and 
+        // somehow identify which inputs go to rx. Then you'll need to figure 
+        // out their inputs - those are the ones you monitor for high pulses.
+
         // Check the inputs to see if any sent a high pulse. If so capture the
         // number of presses it took.
         for (ql_in, ql_c) 
