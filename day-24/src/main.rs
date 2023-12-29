@@ -73,7 +73,7 @@ fn part_1(path: &str) -> Result<usize, Box<dyn Error>> {
             }
         }
     }
-    println!("Part 1 Total intersections: {}", intersections);
+    println!("Part 1: Total intersections...: {}", intersections);
     Ok(intersections)
 }
 
@@ -114,7 +114,7 @@ fn part_2(path: &str) -> Result<f64, Box<dyn Error>> {
     if let (Sat, Some(model)) = (solver.check(), solver.get_model()) {
         let soln = model.eval(&(rock_x + rock_y + rock_z), true).unwrap();
 
-        println!("Part 2: Sum of coordinates: {}", soln);
+        println!("Part 2: Sum of coordinates....: {}", soln);
     } else {
         println!("Part 2: No solution found!");
     }
