@@ -41,7 +41,7 @@ fn part_1(path: &str) -> Result<(), Box<dyn Error>> {
         let t_h1 = (t_r - (t_r.powf(2.0) - 4.0 * d).sqrt()) / 2.0;
         let t_h2 = (t_r + (t_r.powf(2.0) - 4.0 * d).sqrt()) / 2.0;
 
-        prod *= t_h2.floor() - t_h1.ceil() + 1.0;
+        prod *= t_h2.ceil() - t_h1.floor() - 1.0;
     }
     println!("Part 1, product: {}", prod);
 
