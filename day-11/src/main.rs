@@ -17,8 +17,8 @@ fn main() -> Result<(), Box<dyn Error>> {
     
     let start = Instant::now();
 
-    solution2(input, 2)?;
-    solution2(input, 1_000_000)?;
+    solution1(input, 2)?;
+    solution2(input, 100)?; // Make this 1_000_000 for real puzzle input.
 
     let duration = start.elapsed();
 
