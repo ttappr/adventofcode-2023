@@ -61,8 +61,12 @@ fn part_1(path: &str) -> Result<usize, Box<dyn Error>> {
                 if t[0] >= 0. && t[1] >= 0. {
                     let x1 = h1.x + t[0] * h1.vx;
                     let y1 = h1.y + t[0] * h1.vy;
-                    if x1 >= 200000000000000. && x1 <= 400000000000000. &&
-                       y1 >= 200000000000000. && y1 <= 400000000000000. {
+                    //if x1 >= 200000000000000. && x1 <= 400000000000000. &&
+                    //   y1 >= 200000000000000. && y1 <= 400000000000000. {
+
+                    // Sample "test area" below. Real puzzle input is commented
+                    // out above.
+                    if x1 >= 7. && x1 <= 27. && y1 >= 7. && y1 <= 27. {
                         intersections += 1;
                     }
                 }
@@ -93,13 +97,12 @@ fn part_2(path: &str) -> Result<f64, Box<dyn Error>> {
     let rock_vz = Int::new_const(&ctx, "rock_vz");
     let zero    = Int::from_i64(&ctx, 0);
 
-    // The sample size and the skip values are kind of arbitrary. The z3 lib
-    // is finicky. I had to play around with these values to get a solution.
-    for (i, hail) 
-        // You'll need to play around with this commented out line to get the
-        // real puzzle input to work.
-        //in (0..15).zip(hail.iter().skip(5).map(|h| h.z3_hail_stone(&ctx))) {
-        in (0..5).zip(hail.iter().map(|h| h.z3_hail_stone(&ctx))) {
+    // For my puzzle input, the very first few hailstones didn't give a
+    // solution, so we skip some. The funky iterator below is made just so
+    // the sample data will still work with the same code.
+    let iter = hail.iter().cycle().skip(5).take(3);
+
+    for (i, hail) in (0..).zip(iter.map(|h| h.z3_hail_stone(&ctx))) {
 
         let t = Int::new_const(&ctx, format!("t{}", i));
 
