@@ -19,7 +19,7 @@ produce the correct answers.
 
 For the first part, I figured a solution could be arrived at pretty easily by using matrices to solve the system of equations for every two hailstones. I used this [mathru](https://docs.rs/mathru/latest/mathru/) crate that has working linear algebra features.
 
-For part 2 I saw people were having fun with [z3](https://docs.rs/z3/latest/z3/index.html), so I thought I'd give it a try. I'm certain that it's much easier to use the Python interface, but I did it the hard way and got it working for Rust. There were several time sucking nuisances along the path a working solution. Several times I had to pick through the python z3 wrappers to see why things work one way for python but not for Rust. I imagine the Rust support is better on Linux.. or maybe not.. idk.
+For part 2 I saw people were having fun with [z3](https://docs.rs/z3/latest/z3/index.html), so I thought I'd give it a try. I'm certain that it's much easier to use the Python interface, but I did it the hard way and got it working for Rust. There were several time sucking nuisances along the path to a working solution. Several times I had to pick through the python z3 wrappers to see why things work one way for python but not for Rust. I imagine the Rust support is better on Linux.. or maybe not.. idk.
 
 Anyway, I'm glad I tried out z3. It's a cool tool that I can pick up again and use now that I've pushed through the initial headaches and know how to use it.
 
