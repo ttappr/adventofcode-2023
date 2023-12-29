@@ -15,15 +15,13 @@ use regex::Regex;
 fn main() -> Result<(), Box<dyn Error>> {
     println!("Day 8 Advent of Code\n"); 
 
-    //let input = "./data/input1.txt";
-    let input = "./data/sample1.txt";
-    //let input = "./data/sample2.txt";
-    //let input = "./data/sample3.txt";
-    
     let start = Instant::now();
 
-    part_1(input)?;
-    part_2(input)?;
+    //part_1("./data/input1.txt")?;
+    //part_2("./data/input1.txt")?;
+
+    part_1("./data/sample1.txt")?;
+    part_2("./data/sample3.txt")?;
 
     let duration = start.elapsed();
 
@@ -107,7 +105,7 @@ fn part_2(path: &str) -> Result<(), Box<dyn Error>> {
             else { ((r.clone(), (k.0.1 + 1) % dirs.len()), 0) }
         };
         let (lam, _) = brent(((start.clone(), 0), 0), access_fn);
-        
+
         cyc_lcm = lcm(cyc_lcm, lam);
     }
 
