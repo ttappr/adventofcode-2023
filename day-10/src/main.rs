@@ -16,13 +16,13 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     //let input = "./data/input1.txt";
     //let input = "./data/sample1.txt";
-    let input = "./data/sample2.txt";
+    //let input = "./data/sample2.txt";
     //let input = "./data/sample3.txt";
     
     let start = Instant::now();
 
-    part_1(input)?;
-    part_2(input)?;
+    part_1("./data/sample1.txt")?;
+    part_2("./data/sample2.txt")?;
 
     let duration = start.elapsed();
 
@@ -52,7 +52,7 @@ fn part_1(path: &str) -> Result<(), Box<dyn Error>> {
             queue.push_back((next, n_steps + 1));
         }
     }
-    println!("Part 1 Farthest Point: {}", max_d);
+    println!("Part 1 Farthest Point.....: {}", max_d);
 
     Ok(())
 }
@@ -113,7 +113,8 @@ fn part_2(path: &str) -> Result<(), Box<dyn Error>> {
     // Get the UnionFind tile group counts.
     let tile_groups = get_union_find_group_counts(&uf, dims, start_root);
     
-    println!("Part 2 Free Tile Groups: {:?}", tile_groups);
+    // Produces 2 groups. One of them is the right one...
+    println!("Part 2 Free Tile Groups...: {:?}", tile_groups);
 
     Ok(())
 }
