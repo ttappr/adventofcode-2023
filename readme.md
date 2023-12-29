@@ -3,6 +3,8 @@
      style="float:left; padding-right:5px;">
 </img>
 
+All Rust, all day, every day.
+
 This project contains the solutions for all days of the puzzle challenge series.
 All of them should be buildable/runnable after pulling them down to a target
 system. 1 or 2 of them however may take some tweaking to get to work. 
