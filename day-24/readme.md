@@ -12,8 +12,8 @@ it's probably not hanged - it's just slow.
 I have modified the code to work with the sample puzzle input. Part 2 should 
 work on that and real puzzle data with no issue. To have Part 1 work with real
 input data, you'll have to uncomment out a couple lines and comment out another.
-But as there are now, they will run with the sample file provided and produce
-the correct answers.
+In their current state, they will both run with the sample file provided and 
+produce the correct answers.
 
 [LANGUAGE: Rust]  🦀
 
