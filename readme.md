@@ -1,7 +1,4 @@
 # Advent of Code 2023 Solutions
-<style>
-    .red { color: red; }
-</style>
 <img src="https://www.rust-lang.org/logos/rust-logo-128x128.png">
 </img>
 
@@ -17,6 +14,6 @@ To read the challenge text for each solution, you can browse the
 [Advent of Code 2023 site](https://adventofcode.com/2023) calendar, click on the
 day of interest.
 
-Each project has a *readme.md* file. These are just the text of the 
-<span class="red">**reddit**</span> posts I made to the AoC 2023 solutions 
-threads as I completed each puzzle.
+Each project has a *readme.md* file. These are just the text of 
+the <span style="color:red;">**reddit**</span> posts I made to the AoC 2023 
+solutions threads as I completed each puzzle.
