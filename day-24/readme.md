@@ -9,10 +9,11 @@ Also, the z3 crate takes **A LONG** time to build itself and its dependencies.
 So be patient. It shouldn't take more than 5 minutes, but if it seems to hang,
 it's probably not hanged - it's just slow.
 
-The solution, in its current state, reliably solves my own personal offical
-puzzle input. I had to play around with the code surrounding the z3 and
-mathru API calls. I've set it up so the example data works for part2. If using
-real puzzle input, you may have to tweak the code to get the correct answers.
+I have modified the code to work with the sample puzzle input. Part 2 should 
+work on that and real puzzle data with no issue. To have Part 1 work with real
+input data, you'll have to uncomment out a couple lines and comment out another.
+But as there are now, they will run with the sample file provided and produce
+the correct answers.
 
 [LANGUAGE: Rust]  🦀
 
