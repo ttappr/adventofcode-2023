@@ -4,7 +4,7 @@ This project has a dependency on the MS z3 solver library. The z3 Rust crate
 requires [cmake](https://cmake.org/) to be installed on your development system
 in order to build the z3 library and other bundled dependencies of the crate.
 
-So ensure you have cmake insalled before trying to build and run this solution.
+So ensure you have cmake installed before trying to build and run this solution.
 Also, the z3 crate takes **A LONG** time to build itself and its dependencies.
 So be patient. It shouldn't take more than 5 minutes, but if it seems to hang,
 it's probably not hanged - it's just slow.

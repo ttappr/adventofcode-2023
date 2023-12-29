@@ -1,6 +1,6 @@
 # Advent of Code 2023 Solutions
 <img src="https://www.rust-lang.org/logos/rust-logo-64x64.png"
-     style="float:left;padding-right:5px;">
+     style="float:left; padding-right:5px;">
 </img>
 
 This project contains the solutions for all days of the puzzle challenge series.
