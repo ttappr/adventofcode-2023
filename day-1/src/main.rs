@@ -103,14 +103,13 @@ fn match_nums(line: &str) -> (Option<&str>, Option<&str>) {
     let n         = NUMBERS.len();
     let mut first = None;
     let mut last  = None;
-
-    let mut matches1 = vec![usize::MAX; n + 1];
-    let mut matches2 = vec![usize::MAX; n + 1];
+    let mut dp1   = vec![usize::MAX; n + 1];
+    let mut dp2   = vec![usize::MAX; n + 1];
 
     for b1 in line.bytes().chain([b'#']) {
         for (j, b2) in (1..).zip(NUMBERS.bytes()) {
-            if b2 == b'|' && matches1[j - 1] != usize::MAX {
-                let k = matches1[j - 1];
+            if b2 == b'|' && dp1[j - 1] != usize::MAX {
+                let k = dp1[j - 1];
                 if first.is_none() {
                     first = Some(&NUMBERS[k..j - 1]);
                 } else {
@@ -118,14 +117,14 @@ fn match_nums(line: &str) -> (Option<&str>, Option<&str>) {
                 }
             } else if b1 == b2 {
                 if bnumbers[j - 2] == b'|' {
-                    matches2[j] = j - 1;
+                    dp2[j] = j - 1;
                 } else {
-                    matches2[j] = matches1[j - 1];
+                    dp2[j] = dp1[j - 1];
                 }
             }
         }
-        swap(&mut matches1, &mut matches2);
-        matches2.fill(usize::MAX);
+        swap(&mut dp1, &mut dp2);
+        dp2.fill(usize::MAX);
     }
     (first, last)
 }
