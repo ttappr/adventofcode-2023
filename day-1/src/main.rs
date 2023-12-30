@@ -10,12 +10,11 @@ use std::time::Instant;
 
 fn main() -> Result<(), Box<dyn Error>> {
     let start = Instant::now();
-    let input = "./data/input.txt";
 
     println!("Day 1 of Advent of Code! (Trebuchet?!)");
 
-    part_1(input)?;
-    part_2(input)?;
+    part_1("./data/sample1.txt")?;
+    part_2("./data/sample2.txt")?;
     
     let duration = start.elapsed();
 
