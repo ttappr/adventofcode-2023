@@ -101,26 +101,20 @@ fn match_nums(line: &str) -> (Option<&str>, Option<&str>) {
                            |1|2|3|4|5|6|7|8|9|";
     const N: usize = NUMBERS.len();
     let bnumbers   = NUMBERS.as_bytes();
-    let mut first  = None;
-    let mut last   = None;
     let mut dp1    = [usize::MAX; N];
     let mut dp2    = [usize::MAX; N];
+    let mut first  = None;
+    let mut last   = None;
 
     for b1 in line.bytes().chain([b'#']) {
         for (j, b2) in (1..).zip(NUMBERS.bytes()) {
             if b2 == b'|' && dp1[j - 1] != usize::MAX {
                 let k = dp1[j - 1];
-                if first.is_none() {
-                    first = Some(&NUMBERS[k..j - 1]);
-                } else {
-                    last = Some(&NUMBERS[k..j - 1]);
-                }
+                if first.is_none() { first = Some(&NUMBERS[k..j - 1]); } 
+                else               { last  = Some(&NUMBERS[k..j - 1]); }
             } else if b1 == b2 {
-                if bnumbers[j - 2] == b'|' {
-                    dp2[j] = j - 1;
-                } else {
-                    dp2[j] = dp1[j - 1];
-                }
+                if bnumbers[j - 2] == b'|' { dp2[j] = j - 1;      } 
+                else                       { dp2[j] = dp1[j - 1]; }
             }
         }
         swap(&mut dp1, &mut dp2);
