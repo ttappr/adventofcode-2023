@@ -1,3 +1,78 @@
+I came back to this puzzle to fix Part 2. Originally, I solved Part 2 with a
+Python script because the Rust `regex` crate didn't support overlapping matches.
+
+I removed the dependency on `regex` and implemented a Dynamic Programming 
+solution for the number/string matching instead.
+
+    fn part_2(path: &str) -> Result<(), Box<dyn Error>> {
+        use std::mem::swap;
+        let file     = File::open(path)?;    
+        let reader   = BufReader::new(file);
+        let numbers  = "|one|two|three|four|five|six|seven|eight|nine\
+                        |1|2|3|4|5|6|7|8|9|";
+        let bnumbers = numbers.as_bytes();
+        let n        = numbers.len();
+
+        let mut total = 0;
+
+        for line in reader.lines() {
+            let     line     = line?;
+            let mut number   = 0;
+            let mut matches1 = vec![usize::MAX; n + 1];
+            let mut matches2 = vec![usize::MAX; n + 1];
+            let mut first    = None;
+            let mut last     = None;
+
+            for b1 in line.bytes().chain([b'#']) {
+                for (j, b2) in (1..).zip(numbers.bytes()) {
+                    if b2 == b'|' && matches1[j - 1] != usize::MAX {
+                        let k = matches1[j - 1];
+                        if first.is_none() {
+                            first = Some(&numbers[k..j - 1]);
+                        } else {
+                            last = Some(&numbers[k..j - 1]);
+                        }
+                    } else if b1 == b2 {
+                        if bnumbers[j - 2] == b'|' {
+                            matches2[j] = j - 1;
+                        } else {
+                            matches2[j] = matches1[j - 1];
+                        }
+                    }
+                }
+                swap(&mut matches1, &mut matches2);
+                matches2.fill(usize::MAX);
+            }
+            let digit1 = first.ok_or("No first digit found")?;
+            let digit2 = last.unwrap_or(digit1);
+
+            for num in [digit1, digit2] {
+                number *= 10;
+                number += {
+                    match num {
+                        "1" | "one"   => 1,
+                        "2" | "two"   => 2,
+                        "3" | "three" => 3,
+                        "4" | "four"  => 4,
+                        "5" | "five"  => 5,
+                        "6" | "six"   => 6,
+                        "7" | "seven" => 7,
+                        "8" | "eight" => 8,
+                        "9" | "nine"  => 9,
+                        _ => unreachable!(),
+                    }
+                };
+            }
+            total += number;
+        }
+        println!("Part 2 Total: {}", total);
+        Ok(())
+    }
+
+---
+
+The original **reddit** solutions thread post.
+
 [LANGUAGE: Rust]
 
 Well this should have worked. Unfortunately, Rust's `regex` crate doesn't support lookahead expressions to help weed through overlapping matches. Ultimately, I parsed the input data in a Python REPL with a lookhead expression.

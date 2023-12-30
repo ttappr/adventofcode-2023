@@ -15,6 +15,8 @@ input data, you'll have to uncomment out a couple lines and comment out another.
 In their current state, they will both run with the sample file provided and 
 produce the correct answers.
 
+---
+
 [LANGUAGE: Rust]  🦀
 
 For the first part, I figured a solution could be arrived at pretty easily by using matrices to solve the system of equations for every two hailstones. I used this [mathru](https://docs.rs/mathru/latest/mathru/) crate that has working linear algebra features.
