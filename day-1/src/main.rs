@@ -103,8 +103,8 @@ fn match_nums(line: &str) -> (Option<&str>, Option<&str>) {
     let n         = NUMBERS.len();
     let mut first = None;
     let mut last  = None;
-    let mut dp1   = vec![usize::MAX; n + 1];
-    let mut dp2   = vec![usize::MAX; n + 1];
+    let mut dp1   = vec![usize::MAX; n];
+    let mut dp2   = vec![usize::MAX; n];
 
     for b1 in line.bytes().chain([b'#']) {
         for (j, b2) in (1..).zip(NUMBERS.bytes()) {
