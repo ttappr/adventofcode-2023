@@ -59,8 +59,8 @@ fn part_2(path: &str) -> Result<(), Box<dyn Error>> {
     let mut total = 0;
 
     for line in reader.lines() {
-        let     line     = line?;
-        let mut number   = 0;
+        let     line   = line?;
+        let mut number = 0;
 
         let (first, last) = match_nums(&line);
 
@@ -99,12 +99,12 @@ fn match_nums(line: &str) -> (Option<&str>, Option<&str>) {
     use std::mem::swap;
     const NUMBERS: &str = "|one|two|three|four|five|six|seven|eight|nine\
                            |1|2|3|4|5|6|7|8|9|";
-    let bnumbers  = NUMBERS.as_bytes();
-    let n         = NUMBERS.len();
-    let mut first = None;
-    let mut last  = None;
-    let mut dp1   = vec![usize::MAX; n];
-    let mut dp2   = vec![usize::MAX; n];
+    const N: usize = NUMBERS.len();
+    let bnumbers   = NUMBERS.as_bytes();
+    let mut first  = None;
+    let mut last   = None;
+    let mut dp1    = [usize::MAX; N];
+    let mut dp2    = [usize::MAX; N];
 
     for b1 in line.bytes().chain([b'#']) {
         for (j, b2) in (1..).zip(NUMBERS.bytes()) {
