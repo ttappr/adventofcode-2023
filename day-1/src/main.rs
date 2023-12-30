@@ -1,4 +1,4 @@
-//! Advent of Code, Day 1: Trebuchetf?!
+//! Advent of Code, Day 1: Trebuchet?!
 //! Part 1, Get the sum of all calibration values from input data.
 //! Part 2, Get the som of all calibration values considering numbers spelled 
 //!         out.
@@ -10,13 +10,12 @@ use std::time::Instant;
 
 fn main() -> Result<(), Box<dyn Error>> {
     let start = Instant::now();
-    let input1 = "./data/sample1.txt";
-    let input2 = "./data/sample2.txt";
+    let input = "./data/input.txt";
 
-    println!("Day 1 of Advent of Code! (Trebuchetf?!)");
+    println!("Day 1 of Advent of Code! (Trebuchet?!)");
 
-    part_1(input1)?;
-    part_2(input2)?;
+    part_1(input)?;
+    part_2(input)?;
     
     let duration = start.elapsed();
 
@@ -55,44 +54,17 @@ fn part_1(path: &str) -> Result<(), Box<dyn Error>> {
 ///         out.
 /// 
 fn part_2(path: &str) -> Result<(), Box<dyn Error>> {
-    use std::mem::swap;
-    let file     = File::open(path)?;    
-    let reader   = BufReader::new(file);
-    let numbers  = "|one|two|three|four|five|six|seven|eight|nine\
-                    |1|2|3|4|5|6|7|8|9|";
-    let bnumbers = numbers.as_bytes();
-    let n        = numbers.len();
+    let file   = File::open(path)?;    
+    let reader = BufReader::new(file);
 
     let mut total = 0;
 
     for line in reader.lines() {
         let     line     = line?;
         let mut number   = 0;
-        let mut matches1 = vec![usize::MAX; n + 1];
-        let mut matches2 = vec![usize::MAX; n + 1];
-        let mut first    = None;
-        let mut last     = None;
 
-        for b1 in line.bytes().chain([b'#']) {
-            for (j, b2) in (1..).zip(numbers.bytes()) {
-                if b2 == b'|' && matches1[j - 1] != usize::MAX {
-                    let k = matches1[j - 1];
-                    if first.is_none() {
-                        first = Some(&numbers[k..j - 1]);
-                    } else {
-                        last = Some(&numbers[k..j - 1]);
-                    }
-                } else if b1 == b2 {
-                    if bnumbers[j - 2] == b'|' {
-                        matches2[j] = j - 1;
-                    } else {
-                        matches2[j] = matches1[j - 1];
-                    }
-                }
-            }
-            swap(&mut matches1, &mut matches2);
-            matches2.fill(usize::MAX);
-        }
+        let (first, last) = match_nums(&line);
+
         let digit1 = first.ok_or("No first digit found")?;
         let digit2 = last.unwrap_or(digit1);
 
@@ -118,4 +90,43 @@ fn part_2(path: &str) -> Result<(), Box<dyn Error>> {
     println!("Part 2 Total: {}", total);
 
     Ok(())
+}
+
+/// Match numbers in a string using a dynamic programming approach, since
+/// the Rust regex crate doesn't support lookaheads to sort through overlapping
+/// matches.
+/// 
+fn match_nums(line: &str) -> (Option<&str>, Option<&str>) {
+    use std::mem::swap;
+    const NUMBERS: &str = "|one|two|three|four|five|six|seven|eight|nine\
+                           |1|2|3|4|5|6|7|8|9|";
+    let bnumbers  = NUMBERS.as_bytes();
+    let n         = NUMBERS.len();
+    let mut first = None;
+    let mut last  = None;
+
+    let mut matches1 = vec![usize::MAX; n + 1];
+    let mut matches2 = vec![usize::MAX; n + 1];
+
+    for b1 in line.bytes().chain([b'#']) {
+        for (j, b2) in (1..).zip(NUMBERS.bytes()) {
+            if b2 == b'|' && matches1[j - 1] != usize::MAX {
+                let k = matches1[j - 1];
+                if first.is_none() {
+                    first = Some(&NUMBERS[k..j - 1]);
+                } else {
+                    last = Some(&NUMBERS[k..j - 1]);
+                }
+            } else if b1 == b2 {
+                if bnumbers[j - 2] == b'|' {
+                    matches2[j] = j - 1;
+                } else {
+                    matches2[j] = matches1[j - 1];
+                }
+            }
+        }
+        swap(&mut matches1, &mut matches2);
+        matches2.fill(usize::MAX);
+    }
+    (first, last)
 }

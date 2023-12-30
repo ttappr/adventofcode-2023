@@ -1,48 +1,23 @@
-I came back to this puzzle to fix Part 2. Originally, I solved Part 2 with a
-Python script because the Rust `regex` crate didn't support overlapping matches.
+[LANGUAGE: Rust]
 
-I removed the dependency on `regex` and implemented a Dynamic Programming 
-solution for the number/string matching instead.
+Well this should have worked. Unfortunately, Rust's `regex` crate doesn't support lookahead expressions to help weed through overlapping matches. Ultimately, I parsed the input data in a Python REPL with a lookhead expression.
+
+|UPDATE| I came back to this and removed the `regex` crate dependency and implemented a dynamic programming style solution to matching the numbers in the strings. The code linked below has the updated solution.
+
+[Full code](https://topaz.github.io/paste/#XQAAAQAKDwAAAAAAAAAX4IBAR1bGui774bxYSsb6EPKso7PnMTN9d+YxdhAEiR5YtpUUnvlic8mtEwPfofK2k0X18KgmqJylqWVLiOhCuXPwvk2/q6bzD4toyUMgzUgb+8g17m/6l+32r8yqZ82dNJKsF4w+ykDgRfOxWnOAw4qr1ATNhfyIF172yh5N30RXOPh9em5YIkXVgDq44rm2HDR2ibrNEXLSlsIYgNQrwQTl3KK6HER9D9GgwSS8R841NTFzAKAsUyVChjlIA9QLeMR+De9EZPV89KQTa0Cv6nisfUdnk/G+EK+ft2IaKT8nUDgHRIvDepv/LgulaZKkvsEJlzs6Bo9AGzJc0ThPGQ3GvSlUU9i8gkMEeSUcZX2KWTluLdJGLE3IxntytXkPwJGf8ScU5yXP8MWk9egFfmn/fDFExD6KtffdO1z8/wuat3dcj+6AaFiZ3yWH4pq1f2nYVFP7UH5JzaSHul0xcJwvFPyLJjieFJ5PMThinOVVwbAT0C+H4P1/h7e9j8ccuuM8ww2MCs2e+IWUBqtzgu2UdwEqKqlfbjhx+Fj7qJVaS7svdG6U4wkNkpCZTMQlXT99Y/N8KgVg0xdgoHyf2U9Kk+R0akQ/ejXWN/c7AOAZpCv/muQClApnyaLzWU1yAGm7d2cntOBbxcOC9vUMkkB/6pzZoTzdgIAxACmKAG0AKVruB5GuacPsuHthaJeZdnrtVupdMGoZhoF9uqNeLpTcJG1Gn3+bnRAEWYf6YvMlhJPZjYggZJLyh0aD7Z1kgzrJUTBI7Hj6S+R+Z+k/1pW8tftWIwglHkbd7j24CR44LWj3zVKl7+TqObZuVngFwKTJzB0JX1ABYR2knZ0HfCKAMXFaiHLtK9k1SCOR5dbukZAyBv8AUeJlVTjWE12QVY7SvhGpRdIizJ0gY+es2q290x9CTiFbnBfp6Ql6pU+ebhlOWZO+mgS+FuF8td+J7VkzLgVeXknUYtDCm5GEYOPRfoI0PjwYiP72F4Mlb2gTgiQmLS8WVeDDuoDHgxfaNUydZA3OwHRP4xjGeJGpCWvQqtb246dpmZ0zXUCE6umf0MlYy4lh0mZ7sH5XgXqGpCu11geE13CJx0NOIQCEyW53rHJf/8mRj7jEs7j9Lss8XpaMq4mxsXm899ywG/j/Yt8kf6XvTuFR/zb1f4IQa0dgRc0DpozkP83o3lLHe5TzmsTpUlmpZYfdSQb3YuV6a0S7XGLyH9jjtygLTkluj+z1eSDhYzCFSdpTErMnkfT8kN/YriFckV3Z8GtIDhLqKPT8V0hOAhaGcu3PJ14oIE3RPf69nzM54yBoSh8GllfBGGayxdKzTliL6u7eM9T4eIgNenrGgz/CH4gJ1vmNlSxRTv5gdYmySHrkepYH44IzCRS0aXo5o9SDKa11RgDF6tJ2PbCH+1Jjmg7X552N+DJgcVWExSGDSaHNZq7CcBdNlstRNQiud/x703SAxwZNlv5qYGiW+83RCPrzBw6Px1HV62bxcNLxQmFc3YaPz0+S/krCxa+LqBTppKw7y0WGh3YDQ3eiiTcqp4X80AsLvYxF3r3KuC8W1GJsXIUiOC4Jc6NYEWrIohr4KTZ8iMpf3qZ9AwEhrT5uFvz7wM8oXVVSk0bPo34pPU6f0SG8zr0JrM0U74d07ybrs9DDS9nB+MWk13XCjwsz9mHuIpT6xdemR++0Z6+AV1YLvo5+V5cCySkiE8g6uHDFnuM0rbIZWrzcQRc/pEO021ctxvVg/hXdZ3h8XBaDAGzreGD243NP87AozL/FkOcNuJ0nARHY4tA04CzjD1lDKmsLks/Z/8ZHDG4=)
 
     fn part_2(path: &str) -> Result<(), Box<dyn Error>> {
-        use std::mem::swap;
-        let file     = File::open(path)?;    
-        let reader   = BufReader::new(file);
-        let numbers  = "|one|two|three|four|five|six|seven|eight|nine\
-                        |1|2|3|4|5|6|7|8|9|";
-        let bnumbers = numbers.as_bytes();
-        let n        = numbers.len();
+        let file   = File::open(path)?;    
+        let reader = BufReader::new(file);
 
         let mut total = 0;
 
         for line in reader.lines() {
             let     line     = line?;
             let mut number   = 0;
-            let mut matches1 = vec![usize::MAX; n + 1];
-            let mut matches2 = vec![usize::MAX; n + 1];
-            let mut first    = None;
-            let mut last     = None;
 
-            for b1 in line.bytes().chain([b'#']) {
-                for (j, b2) in (1..).zip(numbers.bytes()) {
-                    if b2 == b'|' && matches1[j - 1] != usize::MAX {
-                        let k = matches1[j - 1];
-                        if first.is_none() {
-                            first = Some(&numbers[k..j - 1]);
-                        } else {
-                            last = Some(&numbers[k..j - 1]);
-                        }
-                    } else if b1 == b2 {
-                        if bnumbers[j - 2] == b'|' {
-                            matches2[j] = j - 1;
-                        } else {
-                            matches2[j] = matches1[j - 1];
-                        }
-                    }
-                }
-                swap(&mut matches1, &mut matches2);
-                matches2.fill(usize::MAX);
-            }
+            let (first, last) = match_nums(&line);
+
             let digit1 = first.ok_or("No first digit found")?;
             let digit2 = last.unwrap_or(digit1);
 
@@ -66,58 +41,5 @@ solution for the number/string matching instead.
             total += number;
         }
         println!("Part 2 Total: {}", total);
-        Ok(())
-    }
-
----
-
-The original **reddit** solutions thread post.
-
-[LANGUAGE: Rust]
-
-Well this should have worked. Unfortunately, Rust's `regex` crate doesn't support lookahead expressions to help weed through overlapping matches. Ultimately, I parsed the input data in a Python REPL with a lookhead expression.
-
-[Full code](https://topaz.github.io/paste/#XQAAAQA2CQAAAAAAAAARiEfnOfx6vWkCtaSkbrkYGSF1Vi//vyVfh81HhPFTz8E5W9TtB1qtraWyCjXLTY9+3Y42Zw5Q3K8C6+U5rHaHIxpmZmd1bJtJNQkygXXC9l9i2pRH4+yW80fBXxJGzbBYBQJW+sUyCFFI2TDi7Art68LvQwC47EhsvFUU9WVyjdXQXBUMWqZaGXLKQz/Pud25nkI1XZnqZRcBBVqxme+gybz7An/o7UONQ/jd+6s1h5/zrFT1GKkKdGMpeoPsviQLlI4PbtRDHy9fQG2Hf0o4lfVI8maOYoefwqa41pc5+E08tasKr4ggYa1t3n/Ai7wWJCx0fVpIh8pvjY5VRF7NWgpa5U/tptoaqvSF4ZAcikSuoIVco5YJCUttNaZ+zd6lju6infofcLERBY6+6T6DHxfgubxgkA0yUsxiBLN8IMKbgUvs0o5AnK9Zu+5kQyv959uQj2PKAPSM2anqnBc4Ouxz5cfAaNb7Sc92+j5Se+Kim3O0c1icjjCE3CmnrbSPTc+NJpwGs3nssqjvqjAWobSTZMgSAZI5Wfh5SKAMcHuYcivvZbra6T3VvwiZpu7Poam2IgXhAj37iOQwIWFFtzdlR0ufEg2ad3gSYprxZgIdRrZGqdm8PyPQuGONf4jLcDpCLa1SFhq0b3h6WnpdPefM0gCoAWKOQPTAG37Gc3MZ39jfgGE/P2+IbEoMYhYkFpwDP1zqB8BL5LGZvPC0o3MkQliR+kO3mx+Hhq9XukvnMBE0emon9CFwf5RlZPZ6GB89qf2ub64LEfTtBHk2EbWzBC1iRvbpXI5f6riAAmf7r5PphAJABSgPqrWdYzgaURrVOSwrt6uUWbG4HqBxM2yggsFtmNzEaS+OILlDgr3Ysjr45s+ucN6vlunr//+BI0HTiTYb+N/LpzR+EpiAUVge3LLUzQP4f0+t2DDU5X4eh2WQY+KF3BHJw4RSojrIVW7xLFFNfIUukzSbSSDWPgiQ4qVJghfeEEEQkyUzaYUpYwm2TjzCjCtnvMR1AnbZqefsvnFR7YdCoDXorWUueh7vMSs5QZvRwKGsryb3mQzNzI8IiPbCalvAWjY8BdLyL96xAmM31gV5LWuMDvoLP1FAxiFPtw9+Zj+77eMbxE/VyC98m/wNwmM=)
-
-    fn part_2() -> Result<(), Box<dyn Error>> {
-        let file   = File::open("./data/input.txt")?;    
-        let reader = BufReader::new(file);
-        let rexpr  = Regex::new("one|two|three|four|five|six|seven|\
-                                 eight|nine|[0-9]")?;
-        let mut total = 0;
-
-        for line in reader.lines() {
-            let     line   = line?;
-            let mut number = 0;
-            let mut caps   = rexpr.find_iter(line.as_str())
-                                  .map(|m| m.as_str())
-                                  .collect::<Vec<_>>();
-            let digit1 = *caps.first().unwrap();
-            let digit2 = *caps.last().unwrap_or(&digit1);
-
-            for num in [digit1, digit2] {
-                number *= 10;
-                number += {
-                    match num {
-                        "1" | "one"   => 1,
-                        "2" | "two"   => 2,
-                        "3" | "three" => 3,
-                        "4" | "four"  => 4,
-                        "5" | "five"  => 5,
-                        "6" | "six"   => 6,
-                        "7" | "seven" => 7,
-                        "8" | "eight" => 8,
-                        "9" | "nine"  => 9,
-                        _ => unreachable!(),
-                    }
-                };
-            }
-            total += number;
-        }
-        println!("Part 2 Total: {}", total);
-        println!("Note that this answer will be wrong because the problem has
-                  overlapping patterns in the input data that is expected to be
-                  found. The regex crate does not support this.");
-
         Ok(())
     }
